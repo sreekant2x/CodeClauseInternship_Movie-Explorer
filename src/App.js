@@ -84,7 +84,7 @@ const MovieListContainer = styled.div`
   gap: 20px;
   justify-content: center;
   color: white;
-  background-color:#161B22;
+  background-color: #161b22;
 `;
 const Placeholder = styled.img`
   width: 120px;
@@ -93,7 +93,6 @@ const Placeholder = styled.img`
   opacity: 50%;
 `;
 
-
 function App() {
   const [searchQuery, updateSearchQuery] = useState("");
   const [timeoutId, updateTimeoutId] = useState();
@@ -101,10 +100,10 @@ function App() {
   const [selectedMovie, onMovieSelect] = useState();
 
   const fetchData = async (searchString) => {
-    const response = await axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`)
+    const response = await axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`);
     console.log(response);
     updateMovieList(response.data.Search);
-  }
+  };
   const onTextChange = (e) => {
     clearTimeout(timeoutId);
     updateSearchQuery(e.target.value);
@@ -116,26 +115,16 @@ function App() {
     <Container>
       <Header>
         <AppName>
-          <MovieImage src="/movie.png" />
+          <MovieImage src="https://www.svgrepo.com/show/530128/movie.svg" alt="app logo" />
           Movie Explorer
         </AppName>
         <SearchBox>
-          <SearchIcon src="/search.png" />
+          <SearchIcon src="https://cdn.icon-icons.com/icons2/4191/PNG/512/online_internet_play_movie_camera_browser_web_search_video_icon_262493.png" alt="search logo" />
           <SearchInput placeholder="Search Movie Name" value={searchQuery} onChange={onTextChange} />
         </SearchBox>
       </Header>
-      {selectedMovie && <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={onMovieSelect}/>}
-      <MovieListContainer>
-        {movieList?.length ? (
-          movieList.map((movie, index) => (
-            <MovieComponent
-              key={index}
-              movie={movie}
-              onMovieSelect={onMovieSelect}
-            />
-          ))
-        ): <Placeholder src="moviePlaceholder.png" />}
-      </MovieListContainer>
+      {selectedMovie && <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={onMovieSelect} />}
+      <MovieListContainer>{movieList?.length ? movieList.map((movie, index) => <MovieComponent key={index} movie={movie} onMovieSelect={onMovieSelect} />) : <Placeholder src="https://www.svgrepo.com/show/522651/search-globe.svg" />}</MovieListContainer>
     </Container>
   );
 }
